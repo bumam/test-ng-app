@@ -1,0 +1,44 @@
+.wrapper {
+  display: flex;
+  border: 1px solid gray;
+}
+
+.headline {
+  padding: 10px 15px;
+  text-decoration: none;
+  color: black;
+}
+
+.headline:visited {
+  color: black;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  background-color: white;
+  border: none;
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
+  color: #de2e31;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-decoration: underline;
+}
+
+.menu:hover {
+  background-color: #de2e31;
+  color: white;
+  cursor: pointer;
+}
+
+
+.gray {
+  color: gray;
+}
+
+.red {
+  color: #de2e31;
+  font-weight: bold;
+}
