@@ -1,0 +1,30 @@
+<div class="table-wrapper">
+
+  <button class="add">Добавить</button>
+
+  <table>
+    <tr>
+      <th>id</th>
+      <th>Кличка</th>
+      <th>Пол</th>
+      <th>Вид</th>
+      <th>Цвет</th>
+      <th>Вакцинация</th>
+      <th>Действия</th>
+    </tr>
+    <tr *ngFor="let pet of pets" routerLink="/pet/{{pet.id}}">
+      <td>{{pet.id}}</td>
+      <td>{{pet.name}}</td>
+      <td>{{pet.gender}}</td>
+      <td>{{pet.type}}</td>
+      <td>{{pet.color}}</td>
+      <td>{{pet.vaccination}}</td>
+      <td>
+        <div class="actions">
+          <span>Удалить</span>
+          <span class="edit">Редактировать</span>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
