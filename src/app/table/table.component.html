@@ -1,30 +1,91 @@
-<div class="table-wrapper">
+<div class="big-wrapper">
 
-  <button class="add">Добавить</button>
+  <button class="add" (click)="btnClick = !btnClick">Добавить</button>
+  <div class="wrapper">
+    <div [ngClass]="{
+      half: btnClick,
+      full: !btnClick
+      }" class="mini-wrapper">
+      <table>
+        <tr>
+          <th>id</th>
+          <th>Кличка</th>
+          <th>Пол</th>
+          <th>Вид</th>
+          <th>Цвет</th>
+          <th>Вакцинация</th>
+          <th>Действия</th>
+        </tr>
+        <tr *ngFor="let pet of pets" routerLink="/pet/{{pet.id}}">
+          <td>{{pet.id}}</td>
+          <td>{{pet.name}}</td>
+          <td>{{pet.gender}}</td>
+          <td>{{pet.type}}</td>
+          <td>{{pet.color}}</td>
+          <td>{{pet.vaccination}}</td>
+          <td>
+            <div class="actions">
+              <span>Удалить</span>
+              <span class="edit">Редактировать</span>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
 
-  <table>
-    <tr>
-      <th>id</th>
-      <th>Кличка</th>
-      <th>Пол</th>
-      <th>Вид</th>
-      <th>Цвет</th>
-      <th>Вакцинация</th>
-      <th>Действия</th>
-    </tr>
-    <tr *ngFor="let pet of pets" routerLink="/pet/{{pet.id}}">
-      <td>{{pet.id}}</td>
-      <td>{{pet.name}}</td>
-      <td>{{pet.gender}}</td>
-      <td>{{pet.type}}</td>
-      <td>{{pet.color}}</td>
-      <td>{{pet.vaccination}}</td>
-      <td>
-        <div class="actions">
-          <span>Удалить</span>
-          <span class="edit">Редактировать</span>
+    <div [ngClass]="{
+      show: btnClick,
+      hidden: !btnClick
+      }" class="mini-wrapper">
+      <form [formGroup]="profileForm">
+        <h1>{{head}}</h1>
+        <label>
+          Кличка
+          <br>
+          <input type="text" formControlName="firstName">
+        </label>
+        <br>
+        <label>
+          Пол
+          <br>
+          <select>
+            <option value="1" selected>мужской</option>
+            <option value="2">женский</option>
+          </select>
+        </label>
+        <br>
+        <label>
+          Вид
+          <br>
+          <select>
+            <option value="1" selected>котяу</option>
+            <option value="2">собакау</option>
+            <option value="3">попугау</option>
+          </select>
+        </label>
+        <br>
+        <label>
+          Цвет
+          <br>
+          <input type="text" formControlName="firstName">
+        </label>
+        <br>
+        <label class="check" x>
+          <input type="checkbox" formControlName="firstName">
+          Привит
+        </label>
+        <br>
+        <button type="submit">{{btn}}</button>
+        <div *ngIf="elFirstName.invalid && elFirstName.touched">
+          <span *ngIf="elFirstName.errors['required']">
+            Обязательное поле
+          </span>
+          <span *ngIf="elFirstName.errors['minlength']">
+            Минимально допустимое количество символов 3
+          </span>
         </div>
-      </td>
-    </tr>
-  </table>
+
+      </form>
+    </div>
+  </div>
 </div>

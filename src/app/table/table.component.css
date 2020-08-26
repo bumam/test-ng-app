@@ -1,13 +1,20 @@
-.table-wrapper {
+.big-wrapper {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  padding: 0 15%;
+  width: 90%;
+  padding: 0 5%;
+}
+
+.wrapper {
+  display: flex;
+  width: 100%;
 }
 
 table {
   border-collapse: collapse;
   text-align: center;
+  width: 100%;
 }
 
 .add {
@@ -18,7 +25,23 @@ table {
   border: 2px solid #de2e31;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   font-size: 20px;
+}
 
+.mini-wrapper {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+}
+
+.add:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.add:active,
+.add:focus {
+  outline: none;
+  border: 2px solid #de2e31;
 }
 
 th {
@@ -39,6 +62,9 @@ td {
   color: #4e4e4e;
 }
 
+h1 {
+  margin: 0;
+}
 
 .actions {
   display: flex;
@@ -58,4 +84,40 @@ td {
 .actions span:hover {
   cursor: pointer;
   opacity: 0.4;
+}
+
+form {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+}
+
+input,
+select {
+  width: 100%;
+}
+
+.check {
+  display: flex;
+
+}
+
+.check input {
+  width: auto;
+}
+
+.half {
+  width: 50%;
+}
+
+.full {
+  width: 100%;
+}
+
+.show {
+  display: flex;
+}
+
+.hidden {
+  display: none;
 }
