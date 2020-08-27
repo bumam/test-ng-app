@@ -38,6 +38,11 @@ table {
   opacity: 0.7;
 }
 
+.add:disabled {
+  border: 2px solid gray;
+  opacity: 0.3;
+}
+
 .add:active,
 .add:focus {
   outline: none;
@@ -120,4 +125,12 @@ select {
 
 .hidden {
   display: none;
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: green;
 }
