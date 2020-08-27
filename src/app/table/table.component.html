@@ -64,7 +64,7 @@
       class="mini-wrapper"
     >
       <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-        <h1>{{ this.pet.id ? "Редактирование" : "Новый питомец" }}</h1>
+        <h1>{{ this.pet.id ? "Новый питомец" : "Редактирование" }}</h1>
         <label>
           Кличка
           <br />
@@ -103,7 +103,7 @@
         </label>
         <br />
         <button type="submit" (click)="btnClick = !btnClick" (click)="addPet()">
-          {{ this.pet.id ? "Изменить" : "Создать" }}
+          {{ this.pet.id ? "Создать" : "Изменить" }}
         </button>
         <div *ngIf="name.invalid && name.touched">
           <span *ngIf="name.errors['required']"> Обязательное поле </span>

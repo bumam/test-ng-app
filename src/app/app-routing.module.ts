@@ -8,7 +8,6 @@ import { TableComponent } from './table/table.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'menu', component: MenuComponent },
   { path: 'pets', component: TableComponent },
 ];
 

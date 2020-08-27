@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import mockData from './pets.mock';
 import {
   FormGroup,
@@ -19,27 +19,14 @@ export class TableComponent implements OnInit {
   btnClick = false;
   genders = ['М', 'Ж'];
   types = ['котяу', 'собакау', 'попугау'];
+  counter;
 
-  MaxValue = (arr) => {
-    let newArr = [];
-    for (var key of arr) {
-      newArr.push(key.id);
-    }
-    return Math.max(...newArr);
-  };
+  constructor(private fb: FormBuilder) {
+  }
 
-  counter = this.MaxValue(mockData);
-
-  constructor(private fb: FormBuilder) {}
-
-  initForm() {
-    this.profileForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(3)]],
-      gender: ['М', [Validators.required]],
-      type: ['котяу', [Validators.required]],
-      color: ['', [Validators.required]],
-      vaccination: ['', [Validators.required]],
-    });
+  ngOnInit(): void {
+    this.counter = this.maxValue(mockData);
+    this.initForm();
   }
 
   get name() {
@@ -62,9 +49,26 @@ export class TableComponent implements OnInit {
     return this.profileForm.get('gender');
   }
 
-  ngOnInit(): void {
-    this.initForm();
+  maxValue(arr) {
+    const newArr = [];
+    for (const key of arr) {
+      newArr.push(key.id);
+    }
+    return Math.max(...newArr);
   }
+
+  initForm() {
+    this.profileForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      gender: ['М', [Validators.required]],
+      type: ['котяу', [Validators.required]],
+      color: ['', [Validators.required]],
+      vaccination: ['', [Validators.required]],
+    });
+  }
+
+
+
 
   onSubmit() {
     console.warn(this.profileForm.value);
@@ -79,11 +83,6 @@ export class TableComponent implements OnInit {
 
   add2Pet(id) {
     console.log(111);
-    let start = this.pets.findIndex((pet) => pet.id === id);
-    let toRemove = 1;
-    let newArr = this.pets.splice(start, toRemove, ...this.pets);
-    this.pets = newArr;
-    console.log(this.pets);
   }
 
   deletePet(id) {
