@@ -57,63 +57,9 @@
         show: btnClick,
         hidden: !btnClick
       }"
-      class="mini-wrapper">
-      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-        <h1>{{selectedPet?.id ? 'Редактировать' : 'Новый питомец'}}</h1>
-        <label>
-          Кличка
-          <br />
-          <input type="text" formControlName="name" />
-        </label>
-        <br />
-        <label>
-          Пол
-          <br />
-          <select formControlName="gender">
-            <option *ngFor="let state of genders" [ngValue]="state">
-              {{ state }}
-            </option>
-          </select>
-        </label>
-        <br />
-        <label>
-          Вид
-          <br />
-          <select formControlName="type">
-            <option *ngFor="let type of types" [ngValue]="type">
-              {{ type }}
-            </option>
-          </select>
-        </label>
-        <br />
-        <label>
-          Цвет
-          <br />
-          <input type="text" [value]="pet.color" formControlName="color" />
-        </label>
-        <br />
-        <label class="check">
-          <input type="checkbox" formControlName="vaccination" />
-          Привит
-        </label>
-        <br />
-        <button
-          class="pets__button pets__button--form"
-          (click)="save(selectedPet?.id); btnClick = !btnClick"
-          [disabled]="profileForm.invalid"
-          type="submit">
-          {{selectedPet?.id ? 'Изменить' : 'Создать'}}
-        </button>
-        <div *ngIf="name.invalid && name.touched">
-          <span *ngIf="name.errors['required']"> Обязательное поле </span>
-          <span *ngIf="name.errors['minlength']">
-            Минимально допустимое количество символов 3
-          </span>
-        </div>
-      </form>
+      class="mini-wrapper mini-wrapper--form">
+      <app-form style="width: 60%" (clickMe)="newBtn($event)" [idd]="pet.id"></app-form>
     </div>
   </div>
 
-
-  <app-menu (dataP)="success($event)" ></app-menu>
 </div>

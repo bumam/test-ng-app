@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@angular/cdk/overlay-prebuilt.css';
+
+.myapp-dialog .mat-dialog-container {
+  width: 600px;
+  height: 200px;
+  background: #FFFFFF;
+  box-shadow: 0 2px 27px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+}
