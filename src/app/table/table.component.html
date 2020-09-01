@@ -2,8 +2,7 @@
   <button
     class="add"
     [attr.disabled]="btnClick ? '' : null"
-    (click)="btnClick = !btnClick"
-  >
+    (click)="btnClick = !btnClick;clearForm()">
     Добавить
   </button>
   <div class="wrapper">
@@ -43,13 +42,10 @@
           </td>
           <td>
             <div class="actions">
-              <span (click)="deletePet(pet.id)">Удалить</span>
-              <span
-                (click)="btnClick = !btnClick"
-                (click)="editPet(pet.id)"
-                class="edit"
-                >Редактировать</span
-              >
+              <span (click)="deletePetConfirm(pet.id)">Удалить</span>
+              <span class="edit"
+                (click)="editPet(pet.id);btnClick = !btnClick"
+                >Редактировать</span>
             </div>
           </td>
         </tr>
@@ -61,10 +57,9 @@
         show: btnClick,
         hidden: !btnClick
       }"
-      class="mini-wrapper"
-    >
+      class="mini-wrapper">
       <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-        <h1>{{ this.pet.id ? "Новый питомец" : "Редактирование" }}</h1>
+        <h1>{{selectedPet?.id ? 'Редактировать' : 'Новый питомец'}}</h1>
         <label>
           Кличка
           <br />
@@ -102,8 +97,12 @@
           Привит
         </label>
         <br />
-        <button type="submit" (click)="btnClick = !btnClick" (click)="addPet()">
-          {{ this.pet.id ? "Создать" : "Изменить" }}
+        <button
+          class="pets__button pets__button--form"
+          (click)="save(selectedPet?.id); btnClick = !btnClick"
+          [disabled]="profileForm.invalid"
+          type="submit">
+          {{selectedPet?.id ? 'Изменить' : 'Создать'}}
         </button>
         <div *ngIf="name.invalid && name.touched">
           <span *ngIf="name.errors['required']"> Обязательное поле </span>
@@ -114,4 +113,7 @@
       </form>
     </div>
   </div>
+
+
+  <app-menu (dataP)="success($event)" ></app-menu>
 </div>

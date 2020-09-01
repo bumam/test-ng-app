@@ -1,11 +1,23 @@
 import {Component, OnInit} from '@angular/core';
 import mockData from './pets.mock';
+import {MatDialog} from '@angular/material/dialog';
+import { ModalComponent } from '../modal/modal.component';
+
 import {
   FormGroup,
   FormControl,
   Validators,
   FormBuilder,
 } from '@angular/forms';
+
+interface IPet {
+  id?: number;
+  name?: string;
+  gender?: string;
+  type?: string;
+  color?: string;
+  vaccination?: boolean;
+}
 
 @Component({
   selector: 'app-table',
@@ -20,8 +32,12 @@ export class TableComponent implements OnInit {
   genders = ['М', 'Ж'];
   types = ['котяу', 'собакау', 'попугау'];
   counter;
+  selectedName;
+  selectedPet: IPet;
+  newPet = false;
+  openedRightSide = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -63,26 +79,82 @@ export class TableComponent implements OnInit {
       gender: ['М', [Validators.required]],
       type: ['котяу', [Validators.required]],
       color: ['', [Validators.required]],
-      vaccination: ['', [Validators.required]],
+      vaccination: [''],
     });
   }
-
-
-
 
   onSubmit() {
     console.warn(this.profileForm.value);
     this.initForm();
   }
 
-  addPet() {
-    this.pet = this.profileForm.value;
-    this.pet.id = ++this.counter;
-    this.pets.push(this.pet);
+  clearForm() {
+    const empty = {
+      name: '',
+      gender: 'М',
+      type: 'котяу',
+      color: '',
+      vaccination: false,
+    };
+    this.profileForm.patchValue(empty);
+  }
+  deletePetConfirm(id): void {
+    const petName = this.pets.find(pet => pet.id === id).name;
+    const dialogRef = this.dialog.open(ModalComponent, {
+      panelClass: 'myapp-dialog',
+      data: { name: petName },
+    });
+
+    dialogRef.afterClosed().subscribe(confirmresult => {
+      console.log(confirmresult);
+      if (confirmresult){
+        this.deletePet(id);
+        console.log('Delete confirm is approved by user.');
+      }
+      else {
+        console.log('Delete confirm is cancelled by user.');
+      }
+    });
   }
 
-  add2Pet(id) {
-    console.log(111);
+  addPet(): void {
+   const id = ++this.counter;
+    const pet = {
+      id,
+      name: this.profileForm.value.name,
+      gender: this.profileForm.value.gender,
+      type: this.profileForm.value.type,
+      color: this.profileForm.value.color,
+      vaccination: this.profileForm.value.vaccination,
+    };
+    this.pets.push(pet);
+    this.openRightSide();
+  }
+
+  save(id): void {
+    console.log(id)
+    if (id) {
+      const tempPet = {
+        id,
+        name: this.name.value,
+        gender: this.gender.value,
+        type: this.type.value,
+        color: this.color.value,
+        vaccination: this.vaccination.value,
+      };
+      const foundIndex = this.pets.findIndex(pet => pet.id === tempPet.id);
+      this.pets[foundIndex] = tempPet;
+      this.selectedPet = null;
+      this.selectedName = null;
+      this.openRightSide();
+    } else {
+      this.addPet();
+    }
+  }
+
+  openRightSide(): void {
+    this.newPet = !this.newPet;
+    this.openedRightSide = !this.openedRightSide;
   }
 
   deletePet(id) {
@@ -92,8 +164,13 @@ export class TableComponent implements OnInit {
     );
   }
 
-  editPet(id) {
-    let obj = this.pets.find((pet) => pet.id === id);
-    this.profileForm.patchValue(obj);
+  editPet(id): void {
+    this.selectedName = id;
+    this.selectedPet = this.pets.find((pet) => pet.id === id);
+    this.profileForm.patchValue(this.selectedPet);
+  }
+
+  success (text) {
+    console.log(text);
   }
 }
