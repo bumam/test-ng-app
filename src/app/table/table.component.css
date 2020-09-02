@@ -31,6 +31,20 @@ table {
   display: flex;
   width: 50%;
   justify-content: center;
+  transition: 0.5s;
+}
+
+.mini-wrapper--form{
+  animation: show 1.5s 1;
+}
+
+@keyframes show{
+  0%{
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
 }
 
 .add:hover {
@@ -91,26 +105,6 @@ h1 {
   opacity: 0.4;
 }
 
-form {
-  width: 70%;
-  display: flex;
-  flex-direction: column;
-}
-
-input,
-select {
-  width: 100%;
-}
-
-.check {
-  display: flex;
-
-}
-
-.check input {
-  width: auto;
-}
-
 .half {
   width: 50%;
 }
@@ -134,3 +128,4 @@ select {
 .green {
   color: green;
 }
+

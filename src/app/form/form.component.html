@@ -1,0 +1,53 @@
+<form [formGroup]="profileForm">
+  <h1>{{ idd ? 'Редактировать' : 'Новый питомец'}}</h1>
+  <label>
+    Кличка
+    <br />
+    <input type="text" formControlName="name" />
+  </label>
+  <br />
+  <label>
+    Пол
+    <br />
+    <select formControlName="gender">
+      <option *ngFor="let gender  of genders" [ngValue]="gender">
+        {{ gender }}
+      </option>
+    </select>
+  </label>
+  <br />
+  <label>
+    Вид
+    <br />
+    <select formControlName="type">
+      <option *ngFor="let type of types" [ngValue]="type">
+        {{ type }}
+      </option>
+    </select>
+  </label>
+  <br />
+  <label>
+    Цвет
+    <br />
+    <input type="text" [value]="pet.color" formControlName="color" />
+  </label>
+  <br />
+  <label class="check" >
+    <input type="checkbox" formControlName="vaccination" />
+    Привит
+  </label>
+  <br />
+  <button
+    class="form-button"
+    (click)="save(idd); changeBtn(false); clearForm()"
+    [disabled]="profileForm.invalid"
+    type="submit">
+    {{idd ? 'Изменить' : 'Создать'}}
+  </button>
+  <div *ngIf="name.invalid && name.touched">
+    <span *ngIf="name.errors['required']"> Обязательное поле </span>
+    <span *ngIf="name.errors['minlength']">
+            Минимально допустимое количество символов 3
+          </span>
+  </div>
+</form>

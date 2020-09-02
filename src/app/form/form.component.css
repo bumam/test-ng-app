@@ -1,0 +1,54 @@
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+input,
+select{
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid gray;
+  background-color: rgba(228,162, 163,0.2);
+  color: #4e4e4e;
+  width: 100%;
+}
+
+input{
+  width: 92.5%;
+}
+
+input:active,input:focus,
+select:focus, select:active {
+  outline-color: rgba(228,162, 163,1);
+}
+
+label{
+  color: #524e4e;
+}
+
+.form-button{
+  background-color: gray;
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid gray;
+  cursor: pointer;
+  font-weight: bold;
+}
+.form-button:hover{
+  background-color: white;
+  color: gray;
+  border: 1px solid gray;
+}
+
+.form-button:active, .form-button:focus {
+  outline: none;
+}
+
+.check {
+  display: flex;
+}
+
+.check input {
+  width: auto;
+}
