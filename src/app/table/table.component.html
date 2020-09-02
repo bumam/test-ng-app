@@ -1,8 +1,8 @@
-<div class="big-wrapper">
+<div class="big-wrapper" >
   <button
     class="add"
     [attr.disabled]="btnClick ? '' : null"
-    (click)="btnClick = !btnClick;clearForm()">
+    (click)="btnClick = !btnClick">
     Добавить
   </button>
   <div class="wrapper">
@@ -16,7 +16,7 @@
       <div *ngIf="this.pets.length === 0">
         <p>НЕТ ПИТОМЦЕВ :(</p>
       </div>
-      <table *ngIf="this.pets.length > 0">
+      <table *ngIf="this.pets.length > 0" >
         <tr>
           <th>id</th>
           <th>Кличка</th>
@@ -44,7 +44,7 @@
             <div class="actions">
               <span (click)="deletePetConfirm(pet.id)">Удалить</span>
               <span class="edit"
-                (click)="editPet(pet.id);btnClick = !btnClick"
+                (click)="btnClick = !btnClick; getId(pet.id )"
                 >Редактировать</span>
             </div>
           </td>
@@ -58,7 +58,8 @@
         hidden: !btnClick
       }"
       class="mini-wrapper mini-wrapper--form">
-      <app-form style="width: 60%" (clickMe)="newBtn($event)" [idd]="pet.id"></app-form>
+      <app-form style="width: 60%" [idd]="this.petId" (clickMe)="newBtn($event)"></app-form>
+
     </div>
   </div>
 

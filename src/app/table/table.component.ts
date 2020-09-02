@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import mockData from './pets.mock';
 import {MatDialog} from '@angular/material/dialog';
 import { ModalComponent } from '../modal/modal.component';
@@ -33,17 +33,20 @@ export class TableComponent implements OnInit {
   selectedPet: IPet;
   newPet = false;
   openedRightSide = false;
+  petId;
 
   constructor(private fb: FormBuilder, private dialog: MatDialog) {
   }
 
+  ngOnInit(): void {
+  }
+
+  getId(value) {
+    this.petId = value;
+  }
 
   newBtn(state) {
     this.btnClick = state;
-    console.log(this.btnClick)
-  }
-
-  ngOnInit(): void {
   }
 
   maxValue(arr) {
@@ -54,16 +57,6 @@ export class TableComponent implements OnInit {
     return Math.max(...newArr);
   }
 
-  clearForm() {
-    const empty = {
-      name: '',
-      gender: 'М',
-      type: 'котяу',
-      color: '',
-      vaccination: false,
-    };
-    // this.profileForm.patchValue(empty);
-  }
   deletePetConfirm(id): void {
     const petName = this.pets.find(pet => pet.id === id).name;
     const dialogRef = this.dialog.open(ModalComponent, {
@@ -83,26 +76,10 @@ export class TableComponent implements OnInit {
     });
   }
 
-  openRightSide(): void {
-    this.newPet = !this.newPet;
-    this.openedRightSide = !this.openedRightSide;
-  }
-
   deletePet(id): void {
     this.pets.splice(
       this.pets.findIndex((pet) => pet.id === id),
       1
     );
   }
-
-  editPet(id): void {
-    this.selectedName = id;
-    this.selectedPet = this.pets.find((pet) => pet.id === id);
-    // this.profileForm.patchValue(this.selectedPet);
-  }
-
-  success(text) {
-    console.log(text);
-  }
-
 }
