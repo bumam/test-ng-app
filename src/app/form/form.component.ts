@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -23,7 +23,7 @@ interface IPet {
   styleUrls: ['./form.component.css']
 })
 
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit, OnChanges {
   pet: any = {};
   pets = mockData;
   profileForm: FormGroup;
@@ -42,11 +42,18 @@ export class FormComponent implements OnInit {
   constructor(private fb: FormBuilder) {
   }
 
+
   ngOnInit(): void {
     this.counter = this.maxValue(mockData);
     this.initForm();
-    this.idd ? this.editPet(this.idd) : '';
 }
+
+  ngOnChanges(): void {
+    if (this.idd) {
+      this.editPet(this.idd);
+    }
+  }
+
 
   get name(): AbstractControl {
     return this.profileForm.get('name');
@@ -68,7 +75,7 @@ export class FormComponent implements OnInit {
     return this.profileForm.get('gender');
   }
 
-  maxValue(arr) {
+  maxValue(arr): number {
     const newArr = [];
     for (const key of arr) {
       newArr.push(key.id);
@@ -76,11 +83,11 @@ export class FormComponent implements OnInit {
     return Math.max(...newArr);
   }
 
-  changeBtn(value: boolean) {
+  changeBtn(value: boolean): void {
     this.clickMe.emit(value);
   }
 
-  clearForm() {
+  clearForm(): void {
     const empty = {
       name: '',
       gender: 'М',
@@ -92,7 +99,7 @@ export class FormComponent implements OnInit {
     this.idd = null;
   }
 
-  initForm() {
+  initForm(): void {
     this.profileForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       gender: ['М', [Validators.required]],
@@ -135,11 +142,10 @@ export class FormComponent implements OnInit {
     }
   }
 
-
   editPet(id): void {
-    this.selectedName = id;
-    this.selectedPet = this.pets.find((pet) => pet.id === id);
-    this.profileForm.patchValue(this.selectedPet);
-  }
+  this.selectedName = id;
+  this.selectedPet = this.pets.find((pet) => pet.id === id);
+  this.profileForm.patchValue(this.selectedPet);
+   }
 
 }
